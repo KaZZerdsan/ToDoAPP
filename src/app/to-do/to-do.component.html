@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class = "textbox">
+	<mat-form-field>
+   		<input matInput [(ngModel)]="quest" placeholder="What you want to do?">
+	</mat-form-field>
+   		<button mat-button (click)="add_quest(quest)">X</button>
+		<ul>
+			<li [ngClass]="{marked: complete[i]}" *ngFor="let quest of quest_list; index as i">
+				<mat-checkbox (change) = "Toggle_Line(i)"></mat-checkbox>
+				<label>{{quest}}</label>
+				<button mat-button (click)="remove_quest(i)">X</button>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
