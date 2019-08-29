@@ -1,16 +1,68 @@
-body{
-	background: #F7C499;
+.ToDoApp{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 600px;
+	margin: 50px 0;
+	box-shadow: 0 0 10px black;
+	border: 1px solid black;
+}
+
+.textbox{
+	background: #F7C49E;
+}
+
+.questCount{
+	margin: 10px 0 10px 15px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+}
+
+.textbox ul{
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+	padding: 0px;
+	margin: 0px;
+	word-wrap: break-word;
+}
+
+.textbox li{
+	display: inherit;
 	align-items: center;
+	flex-direction: row;
+	border-bottom: 1px solid gray;
+}
+
+.textbox label{
+	font-size: 25px;
+	padding: 15px 10px 15px 15px;
+}
+
+.questCount{
+	height: 45px;
+}
+
+.questType{
+	font-size: 18px;
+	width: 120px;
+	position: absolute;
+	right: 10px;
+	bottom: 8px;
 }
 
 mat-checkbox{
-	margin-right: 5px;
+	padding-left: 10px;
 }
-li{
-	transform: translateX(-40px);
-	list-style-type: none;
+
+mat-form-field{
+	width: 100%;
+	font-size: 35px;
+}
+
+.deletebutton{
+	position: absolute;
+	right: 0;
 }
 
 .marked{

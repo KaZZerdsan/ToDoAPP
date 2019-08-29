@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { getTestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-to-do',
@@ -7,13 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToDoComponent implements OnInit {
 	quest: string = "";
-	quest_list = [];
-	complete = [];
+	questList = [];
+	check = [false, false]
 
-	add_quest(quest){
+	draw(){
+		let view = [];
+		if (this.check[0]){
+			this.questList.forEach(function adding(item){
+				if (item.state = false) view.push(item.name);
+			})
+		}
+		if (this.check[1]){
+			this.questList.forEach(function adding(item){
+				if (item.state = true) view.push(item.name);
+			})
+		}
+		return view;
+	}
+
+	addQuest(quest){
 		if (quest != ""){
-			this.quest_list.push(quest);
-			this.complete.push(false);
+			this.questList.push({
+				name: quest,
+				state: false
+			});
 			this.quest = "";
 		}
 		else {
@@ -21,13 +39,22 @@ export class ToDoComponent implements OnInit {
 		}
 	}
 
-	remove_quest(i){
-		this.quest_list.splice(i, 1);
-		this.complete.splice(i, 1);
+	removeQuest(i){
+		this.questList.splice(i, 1);
 	}
 
-	Toggle_Line(i){
-		this.complete[i] = !this.complete[i];
+	toggleLine(i){
+		this.questList[i].state = !this.questList[i].state;
+	}
+
+	itemCounting(){
+		let count = 0
+		this.questList.forEach(function counting(item) {
+			if (item.state == false){
+				count++;
+			}
+		})
+		return count;
 	}
 
   constructor() { }

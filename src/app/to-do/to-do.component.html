@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+<div class="ToDoApp">
 	<div class = "textbox">
 	<mat-form-field>
-   		<input matInput [(ngModel)]="quest" placeholder="What you want to do?">
+			<input id = "questPole" autofocus (keyup.enter)='addQuest(quest)' matInput [(ngModel)]="quest" placeholder="What you want to do?" />
 	</mat-form-field>
-   		<button mat-button (click)="add_quest(quest)">X</button>
 		<ul>
-			<li [ngClass]="{marked: complete[i]}" *ngFor="let quest of quest_list; index as i">
-				<mat-checkbox (change) = "Toggle_Line(i)"></mat-checkbox>
-				<label>{{quest}}</label>
-				<button mat-button (click)="remove_quest(i)">X</button>
-			</li>
-		</ul>
-	</div>
-</body>
-</html>
+			<li [ngClass]="{marked: questList[i].state}" *ngFor="let item of draw(); index as i">
+				<mat-checkbox (change) = "toggleLine(i)"></mat-checkbox>
+				<label>{{item}}</label>
+				<button class = "deletebutton" mat-button (click)="removeQuest(i)">X</button>
+				</li>
+			</ul>
+		</div>
+	<div class="questCount">
+		<label>{{itemCounting()}} items left </label>
+			<div class = "questType">
+					<mat-checkbox [(ngModel)] = "check[0]" (change) = "draw()">Marked</mat-checkbox>
+					<mat-checkbox [(ngModel)] = "check[1]" (change) = "draw()">Unmarked</mat-checkbox>
+			</div>
+		</div>
+</div>
