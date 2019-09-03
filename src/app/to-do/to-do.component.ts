@@ -28,7 +28,6 @@ export class ToDoComponent implements OnInit {
   }
 
   removeToDo(i: number) {
-    console.log(i);
     this.toDoList = this.toDoList.filter(todo => todo.id !== i)
   }
 
