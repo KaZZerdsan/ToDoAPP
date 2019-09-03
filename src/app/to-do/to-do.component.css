@@ -1,4 +1,5 @@
 .ToDoApp{
+	background: #76bcc591;
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
@@ -8,14 +9,9 @@
 	border: 1px solid black;
 }
 
-.textbox{
-	background: #F7C49E;
-}
 
 .questCount{
-	margin: 10px 0 10px 15px;
-	display: flex;
-	justify-content: space-between;
+  margin: 20px 10px;
 }
 
 .textbox ul{
@@ -37,18 +33,6 @@
 .textbox label{
 	font-size: 25px;
 	padding: 15px 10px 15px 15px;
-}
-
-.questCount{
-	height: 45px;
-}
-
-.questType{
-	font-size: 18px;
-	width: 120px;
-	position: absolute;
-	right: 10px;
-	bottom: 8px;
 }
 
 mat-checkbox{

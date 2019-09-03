@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
+import { TodoElement } from '../interfaces/todo-element';
 
 @Component({
   selector: 'app-to-do',
@@ -7,59 +8,71 @@ import { getTestBed } from '@angular/core/testing';
   styleUrls: ['./to-do.component.css']
 })
 export class ToDoComponent implements OnInit {
-	quest: string = "";
-	questList = [];
-	check = [false, false]
+  toDo: string;
+  toDoList: TodoElement[] = [];
+  lastID: number = 1;
+  toDoBefore: string = '';
+  filter: string = 'All';
 
-	draw(){
-		let view = [];
-		if (this.check[0]){
-			this.questList.forEach(function adding(item){
-				if (item.state = false) view.push(item.name);
-			})
-		}
-		if (this.check[1]){
-			this.questList.forEach(function adding(item){
-				if (item.state = true) view.push(item.name);
-			})
-		}
-		return view;
-	}
+  addToDo(quest: string) {
+    if(quest !== '') {
+      this.toDoList.push({
+        name: quest,
+        completed: false,
+        edit: false,
+        id: this.lastID,
+      })
+      this.lastID++;
+      this.toDo = '';
+    }
+  }
 
-	addQuest(quest){
-		if (quest != ""){
-			this.questList.push({
-				name: quest,
-				state: false
-			});
-			this.quest = "";
-		}
-		else {
-			alert("Vvedi zadachu, dubina!!");
-		}
-	}
+  removeToDo(i: number) {
+    console.log(i);
+    this.toDoList = this.toDoList.filter(todo => todo.id !== i)
+  }
 
-	removeQuest(i){
-		this.questList.splice(i, 1);
-	}
+  toDoCount() {
+    return this.toDoList.filter(todo => todo.completed === false).length
+  }
 
-	toggleLine(i){
-		this.questList[i].state = !this.questList[i].state;
-	}
+  toggleComplete(todo: TodoElement) {
+    todo.completed = !todo.completed;
+  }
 
-	itemCounting(){
-		let count = 0
-		this.questList.forEach(function counting(item) {
-			if (item.state == false){
-				count++;
-			}
-		})
-		return count;
-	}
+  editEvent(todo: TodoElement) {
+    this.toDoBefore = todo.name;
+    todo.edit = true;
+  }
+
+  editEnd(todo: TodoElement) {
+    if (todo.name === '') {
+      todo.name = this.toDoBefore;
+    }
+    todo.edit = false;
+  }
+
+  cancelEdit(todo: TodoElement) {
+    todo.name = this.toDoBefore;
+    todo.edit = false;
+  }
+
+  listFilter() {
+    if (this.filter === 'All') {
+      return this.toDoList;
+    }
+    else if (this.filter === 'Completed') {
+      return this.toDoList.filter(todo => todo.completed === true);
+    }
+    else if (this.filter === 'Not completed') {
+      return this.toDoList.filter(todo => todo.completed === false)
+    }
+  }
 
   constructor() { }
 
   ngOnInit() {
+  
   }
 
 }
