@@ -1,23 +1,27 @@
 <div class='ToDoApp'>
 	<div class = 'textbox'>
 		<mat-form-field>
-				<input id = 'questPole' autofocus (keyup.enter)='addToDo(toDo)' matInput [(ngModel)]='toDo' placeholder='What you want to do?' />
+				<input id = 'questPole' autofocus (keyup.enter)='addToDo(toDo)' matInput
+				[(ngModel)]='toDo' placeholder='What you want to do?' />
 		</mat-form-field>
 	<ul>
-		<li [ngClass]='{marked: toDoList[i].completed}' *ngFor='let toDoEvent of listFilter(); index as i'>
-			<mat-checkbox (change) = 'toggleComplete(toDoEvent)'></mat-checkbox>
-			<label (dblclick) = 'editEvent(toDoEvent)' *ngIf='!toDoEvent.edit; else toDoEdit'>{{toDoEvent.name}}</label>
+		<li [ngClass]='{marked: toDoEvent.completed}' *ngFor='let toDoEvent of filteredList.reverse()'>
+			<mat-checkbox [(ngModel)] = 'toDoEvent.completed'></mat-checkbox>
+			<label (dblclick) = 'editEvent(toDoEvent)' *ngIf='!toDoEvent.edit; else toDoEdit'>
+				{{toDoEvent.name}}</label>
 			<ng-template #toDoEdit>
-				<input autofocus type='text' [(ngModel)] = 'toDoEvent.name' (blur) = 'cancelEdit(toDoEvent)' (keyup.enter) = 'editEnd(toDoEvent)' (keyup.esc) = 'cancelEdit(toDoEvent)'>
+				<input autofocus type='text' [(ngModel)] = 'toDoEvent.name'
+				(blur) = 'cancelEdit(toDoEvent)' (keyup.enter) = 'editEnd(toDoEvent)' 
+				(keyup.esc) = 'cancelEdit(toDoEvent)'>
 			</ng-template>
-			<button class = 'deletebutton' mat-button (click)='removeToDo(toDoEvent.id)'>X</button>
+			<button class = 'deletebutton' mat-button (click)='removeToDo(toDoEvent)'>X</button>
 			</li>
 		</ul>
 		</div>
 	<div class='questCount'>
 		<label>{{toDoCount()}} items left </label>
-		<button mat-button (click) = 'filter = "All"'>All</button>
-		<button mat-button (click) = 'filter = "Not completed"'>Not completed</button>
-		<button mat-button (click) = 'filter = "Completed"'>Completed</button>
+		<button mat-button (click) = 'listFilter("All")'>All</button>
+		<button mat-button (click) = 'listFilter("Uncompleted")'>Uncompleted</button>
+		<button mat-button (click) = 'listFilter("Completed")'>Completed</button>
 		</div>
 </div>

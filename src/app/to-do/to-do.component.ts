@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
 import { TodoElement } from '../interfaces/todo-element';
 
@@ -7,11 +7,12 @@ import { TodoElement } from '../interfaces/todo-element';
   templateUrl: './to-do.component.html',
   styleUrls: ['./to-do.component.css']
 })
-export class ToDoComponent implements OnInit {
+export class ToDoComponent implements OnInit, OnDestroy {
   toDo: string;
   toDoList: TodoElement[] = [];
-  lastID: number = 1;
-  toDoBefore: string = '';
+  filteredList: TodoElement[] = [];
+  lastID: number;
+  bufferToDo: string = '';
   filter: string = 'All';
 
   addToDo(quest: string) {
@@ -21,14 +22,17 @@ export class ToDoComponent implements OnInit {
         completed: false,
         edit: false,
         id: this.lastID,
-      })
-      this.lastID++;
+      });
       this.toDo = '';
+      this.lastID++;
     }
+    this.listFilter(this.filter);
+    localStorage.setItem('key', JSON.stringify(this.toDoList));
   }
 
-  removeToDo(i: number) {
-    this.toDoList = this.toDoList.filter(todo => todo.id !== i)
+  removeToDo(todo: TodoElement) {
+    this.toDoList = this.toDoList.filter(word => word.id !== todo.id);
+    this.filteredList = this.filteredList.filter(word => word.id !== todo.id);
   }
 
   toDoCount() {
@@ -40,38 +44,44 @@ export class ToDoComponent implements OnInit {
   }
 
   editEvent(todo: TodoElement) {
-    this.toDoBefore = todo.name;
+    this.bufferToDo = todo.name;
     todo.edit = true;
   }
 
   editEnd(todo: TodoElement) {
     if (todo.name === '') {
-      todo.name = this.toDoBefore;
+      todo.name = this.bufferToDo;
     }
     todo.edit = false;
   }
 
   cancelEdit(todo: TodoElement) {
-    todo.name = this.toDoBefore;
+    todo.name = this.bufferToDo;
     todo.edit = false;
   }
 
-  listFilter() {
-    if (this.filter === 'All') {
-      return this.toDoList;
+  listFilter(x: string){
+    this.filter = x;
+    if (x === 'All'){
+      this.filteredList = this.toDoList;
     }
-    else if (this.filter === 'Completed') {
-      return this.toDoList.filter(todo => todo.completed === true);
+    if (x === 'Completed'){
+      this.filteredList = this.toDoList.filter(todo => todo.completed);
     }
-    else if (this.filter === 'Not completed') {
-      return this.toDoList.filter(todo => todo.completed === false)
+    if (x === 'Uncompleted'){
+      this.filteredList = this.toDoList.filter(todo => !todo.completed);
     }
   }
 
   constructor() { }
 
   ngOnInit() {
-  
+    this.toDoList = JSON.parse(localStorage.getItem('key'));
+    this.listFilter(this.filter);
+    const arrLen = this.toDoList.length - 1
+    this.lastID = this.toDoList[arrLen].id + 1;
+  }
+  ngOnDestroy() {
   }
 
 }
