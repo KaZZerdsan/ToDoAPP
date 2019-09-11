@@ -33,6 +33,7 @@ export class ToDoComponent implements OnInit, OnDestroy {
   removeToDo(todo: TodoElement) {
     this.toDoList = this.toDoList.filter(word => word.id !== todo.id);
     this.filteredList = this.filteredList.filter(word => word.id !== todo.id);
+    localStorage.setItem('key', JSON.stringify(this.toDoList));
   }
 
   toDoCount() {
@@ -60,15 +61,15 @@ export class ToDoComponent implements OnInit, OnDestroy {
     todo.edit = false;
   }
 
-  listFilter(x: string){
-    this.filter = x;
-    if (x === 'All'){
+  listFilter(state: string){
+    this.filter = state;
+    if (state === 'All'){
       this.filteredList = this.toDoList;
     }
-    if (x === 'Completed'){
+    if (state === 'Completed'){
       this.filteredList = this.toDoList.filter(todo => todo.completed);
     }
-    if (x === 'Uncompleted'){
+    if (state === 'Uncompleted'){
       this.filteredList = this.toDoList.filter(todo => !todo.completed);
     }
   }

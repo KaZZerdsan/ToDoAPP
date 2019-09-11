@@ -6,20 +6,22 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { AutofocusModule } from 'angular-autofocus-fix';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { FormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToDoComponent } from './to-do/to-do.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CheckComponentComponent } from './check-component/check-component.component';
+import { FooterComponent, HeaderComponent } from './layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToDoComponent,
-    CheckComponentComponent
+    FooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import { CheckComponentComponent } from './check-component/check-component.compo
     MatCheckboxModule,
     MatSelectModule,
     AutofocusModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 .ToDoApp{
 	background: #76bcc591;
-	position: absolute;
+	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 600px;
-	margin: 50px 0;
+	margin: 30px 0;
 	box-shadow: 0 0 10px black;
 	border: 1px solid black;
 }
