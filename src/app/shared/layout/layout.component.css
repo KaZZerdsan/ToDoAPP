@@ -1,0 +1,59 @@
+.layoutContainer{
+    background: url(../../../assets/pics/Background.jpg) no-repeat;
+    background-size: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+
+header{
+    height: 80px;
+    position: relative;
+    top: 0;
+    background: rgb(80, 0, 155);
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+header a, header button{
+    margin: 0 30px ;
+    background-color: #474747;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+}
+
+footer{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #333;
+    height: 50px;
+}
+
+.sideNavContainer{
+    position: absolute;
+    height: 100%;
+
+}
+.sideNavContainer a{
+    text-decoration: none;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,31 @@
+<div class='layoutContainer'>
+  <header>
+    <div>
+        <a routerLink='/todo'>ToDoApp</a>
+        <a routerLink='/'>Home</a>
+        <a *ngIf='!(userService.isAuthenticated$ | async); else isAuth' routerLink='/auth'>Sign Up</a>
+        <ng-template #isAuth>
+            <button mat-button (click)='userService.purgeAuth()'>Log Out</button>
+            <p>Hello, {{username}}!</p>
+        </ng-template>
+    </div>
+  </header>
+  <mat-sidenav-container class='sideNavContainer'>
+    <mat-sidenav #sidenav mode="over" [(opened)]="opened" (opened)="events.push('open!')"
+                 (closed)="events.push('close!')" 
+                 >
+      <a routerLink="/">Home</a>
+      <a routerLink="/todo">ToDoApp</a>
+      <a routerLink='/auth'>Sign Up</a>
+    </mat-sidenav>
+  
+    <mat-sidenav-content style='width: 100px'>
+      <p><button mat-button (click)="sidenav.toggle()">...</button></p>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <router-outlet></router-outlet>
+<footer class='footer'>
+    <h1>All rights reserved</h1>
+  </footer>
+</div>
+

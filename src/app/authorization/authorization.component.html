@@ -1,0 +1,8 @@
+<div>
+    <p>zaidi pliz!</p>
+    <form [formGroup] = 'signInForm' (ngSubmit)='onSubmit()'>
+        <input formControlName='email'>
+        <input type = 'password' formControlName='password'>
+        <button type='submit'>ENTER</button>
+    </form>
+</div>

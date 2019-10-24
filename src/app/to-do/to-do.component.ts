@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { getTestBed } from '@angular/core/testing';
-import { TodoElement } from '../interfaces/todo-element';
+import { TodoElement } from '../core/interfaces/todo-element';
 
 @Component({
   selector: 'app-to-do',
@@ -34,6 +33,7 @@ export class ToDoComponent implements OnInit, OnDestroy {
     this.toDoList = this.toDoList.filter(word => word.id !== todo.id);
     this.filteredList = this.filteredList.filter(word => word.id !== todo.id);
     localStorage.setItem('key', JSON.stringify(this.toDoList));
+    console.log (todo.id);
   }
 
   toDoCount() {
@@ -79,8 +79,11 @@ export class ToDoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.toDoList = JSON.parse(localStorage.getItem('key'));
     this.listFilter(this.filter);
-    const arrLen = this.toDoList.length - 1
-    this.lastID = this.toDoList[arrLen].id + 1;
+    const arrLen = this.toDoList.length - 1;
+    if (arrLen === -1){
+      this.lastID = 1;
+    }
+    else {this.lastID = this.toDoList[arrLen].id + 1;}
   }
   ngOnDestroy() {
   }
